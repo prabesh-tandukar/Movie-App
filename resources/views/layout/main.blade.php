@@ -11,7 +11,7 @@
 
 <body class="font-sans bg-gray-900 text-white">
     <nav class="border-b border-gray-800">
-        <div class="container mx-auto flex items-center justify-between px-4 py-6">
+        <div class="container mx-auto px-4 flex items-center justify-between px-4 py-6">
             <ul class="flex items-center">
                 <li>
                     <a href="#">
@@ -33,9 +33,14 @@
                     <input type="text"
                         class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline"
                         placeholder="Search">
-                        <div class="absolute top-0">
-                            
-                        </div>
+                        {{-- <div class="absolute top-0">
+                            //can add a search logo later
+                        </div> --}}
+                </div>
+                <div class="ml-4">
+                    <a href="#">
+                        <img src="/img/avatar.jpg" alt="avatar" class="rounded-full w-8 h-8">
+                    </a>
                 </div>
             </div>
         </div>
