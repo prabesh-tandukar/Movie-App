@@ -16,40 +16,46 @@ class MovieController extends Controller
     }
 
     public function create()
-    {
-        $actors = Actor::all();
-        return view('admin.movies.index', compact('actors'));
+{
+    $actors = Actor::all();
+    return view('admin.movies.create', compact('actors'));
+}
+
+
+public function store(Request $request)
+{
+    $request->validate([
+        'title' => 'required',
+        'rating' => 'required|integer|between:0,100',
+        'release_date' => 'required|date',
+        'description' => 'required',
+        'main_image' => 'required|image',
+        'other_images.*' => 'image',
+        'actors' => 'required|array'
+    ]);
+
+    $mainImagePath = $request->file('main_image')->store('images', 'public');
+
+    $otherImagesPaths = [];
+    if ($request->hasFile('other_images')) {
+        foreach ($request->file('other_images') as $image) {
+            $otherImagesPaths[] = $image->store('images', 'public');
+        }
     }
 
-    public function store(Request $request){
-        $request->validate([
-            'title' => 'required',
-            'rating' => 'required|integer|between:0,100',
-            'release_date' => 'required|date',
-            'description' => 'required',
-            'main_image' => 'requried|image',
-            'other_images' => 'image',
-            'actors' => 'Required|array'
-        ]);
+    $movie = Movie::create([
+        'title' => $request->title,
+        'rating' => $request->rating,
+        'release_date' => $request->release_date,
+        'description' => $request->description,
+        'main_image' => $mainImagePath,
+        'other_images' => $otherImagesPaths
+    ]);
 
-        $mainImagePath = $request->file('main_image')->store('images');
-        $otherImagesPaths = $request->file('other_images') ? array_map(function($image) {
-            return $image->store('images');
-        }, $request->file('other_images')) : [];
+    $movie->actors()->attach($request->actors);
 
-        $movie = Movie::create([
-            'title' => $request->title,
-            'rating' => $request->rating,
-            'release_date' => $request->release_date,
-            'description' => $request->description,
-            'main_image' => $mainImagePath,
-            'other_images' => $otherImagesPaths
-        ]);
-
-        $movie->actors()->attach($request->actors);
-
-        return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
-    }
+    return redirect()->route('movies.index')->with('success', 'Movie created successfully.');
+}
 
     public function edit(Movie $movie)
     {
@@ -70,13 +76,13 @@ class MovieController extends Controller
         ]);
 
         if ($request->hasFile('main_image')) {
-            $mainImagePath = $request->file('main_image')->store('images');
+            $mainImagePath = $request->file('main_image')->store('images', 'public');
             $movie->main_image = $mainImagePath;
         }
 
         if ($request->hasFile('other_images')) {
             $otherImagesPaths = array_map(function ($image) {
-                return $image->store('images');
+                return $image->store('images', 'public');
             }, $request->file('other_images'));
             $movie->other_images = $otherImagesPaths;
         }
@@ -93,9 +99,14 @@ class MovieController extends Controller
         return redirect()->route('movies.index')->with('success', 'Movie updated successfully.');
     }
 
-    public function destory(Movie $movie)
+    public function destroy(Movie $movie)
+        {
+            $movie->delete();
+            return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
+        }
+
+    public function show(Movie $movie)
     {
-        $movie->delete();
-        return redirect()->route('movies.index')->with('success', 'Movie deleted successfully');
+        return view('admin.movies.show', compact('movie'));
     }
 }
