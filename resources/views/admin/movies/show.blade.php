@@ -5,7 +5,16 @@
     <h1 class="text-4xl font-bold mb-4">{{ $movie->title }}</h1>
     <p class="text-xl mb-2">Rating: <span class="font-semibold">{{ $movie->rating }}%</span></p>
     <p class="text-xl mb-2">Release Date: <span class="font-semibold">{{ \Carbon\Carbon::parse($movie->release_date)->format('F d, Y') }}</span></p>
+    <p class="text-xl mb-2">Genres: <span class="font-semibold">{{ $movie->genres }}%</span></p>
     <p class="text-xl mb-4">Description: <span class="font-light">{{ $movie->description }}</span></p>
+
+    <div class="mt-4">
+        <label for="is_now_playing" class="inline-flex items-center">
+            <input type="checkbox" id="is_now_playing" name="is_now_playing" class="text-xl mb-2" disabled {{ $movie->is_now_playing ? 'checked' : '' }}>
+            <span class="text-xl mb-2 ml-2">Now Playing</span>
+        </label>
+    </div>
+
 
     <div class="mb-4">
         <h3 class="text-2xl font-semibold mb-2">Main Image:</h3>

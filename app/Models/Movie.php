@@ -15,7 +15,9 @@ class Movie extends Model
         'release_date',
         'description',
         'main_image',
-        'other_images'
+        'other_images',
+        'is_now_playing',
+        'genres'
     ];
 
     protected $casts = [

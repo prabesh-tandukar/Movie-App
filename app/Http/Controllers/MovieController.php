@@ -29,9 +29,11 @@ public function store(Request $request)
         'rating' => 'required|integer|between:0,100',
         'release_date' => 'required|date',
         'description' => 'required',
+        'genres' => 'required',
         'main_image' => 'required|image',
         'other_images.*' => 'image',
-        'actors' => 'required|array'
+        'actors' => 'required|array',
+        'is_now_playing' => 'required|boolean'
     ]);
 
     $mainImagePath = $request->file('main_image')->store('images', 'public');
@@ -48,8 +50,10 @@ public function store(Request $request)
         'rating' => $request->rating,
         'release_date' => $request->release_date,
         'description' => $request->description,
+        'genres' => $request->genres,
         'main_image' => $mainImagePath,
-        'other_images' => $otherImagesPaths
+        'other_images' => $otherImagesPaths,
+        'is_now_playing' => $request->is_now_playing
     ]);
 
     $movie->actors()->attach($request->actors);
@@ -70,9 +74,11 @@ public function store(Request $request)
             'rating' => 'required|integer|between:0,100',
             'release_date' => 'required|date',
             'description' => 'required',
+            'genres' => 'required',
             'main_image' => 'image',
             'other_images.*' => 'image',
-            'actors' => 'required|array'
+            'actors' => 'required|array',
+            'is_now_playing' => 'required|boolean'
         ]);
 
         if ($request->hasFile('main_image')) {
@@ -92,6 +98,8 @@ public function store(Request $request)
             'rating' => $request->rating,
             'release_date' => $request->release_date,
             'description' => $request->description,
+            'genres' => $request->genres,
+            'is_now_playing' => $request->is_now_playing
         ]);
 
         $movie->actors()->sync($request->actors);
@@ -108,5 +116,27 @@ public function store(Request $request)
     public function show(Movie $movie)
     {
         return view('admin.movies.show', compact('movie'));
+    }
+
+    //Client side method
+    public function indexClient()
+    {
+        $popularMovies = Movie::where('rating', '>', 70)->take(10)->get();
+        $nowPlayingMovies = Movie::where('is_now_playing', true)->take(10)->get();
+        return view('index', compact('popularMovies', 'nowPlayingMovies'));
+    }
+
+    public function showClient($id)
+    {
+        $movie = Movie::with('actors')->findOrFail($id);
+
+        return view('show', ['movie' => $movie]);
+    }
+
+    public function allMovies()
+    {
+        $movies = Movie::with('actors')->get();
+        return view('movies', compact('movies'));
+        
     }
 }

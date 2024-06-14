@@ -14,18 +14,16 @@
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between px-4 py-6">
             <ul class="flex flex-col md:flex-row items-center">
                 <li>
-                    <a href="#">
+                    <a href="{{ route('home') }}">
                         <div class="w-32">Rotten Avocado</div>
                     </a>
                 </li>
                 <li class="md:ml-16 mt-3 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">Movies</a>
+                    <a href="{{ route('all_movies') }}" class="hover:text-gray-300">Movies</a>
                 </li>
+                
                 <li class="md:ml-6 mt-3 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">TV Shows</a>
-                </li>
-                <li class="md:ml-6 mt-3 md:mt-0">
-                    <a href="#" class="hover:text-gray-300">Actors</a>
+                    <a href="{{ route("all_actors") }}" class="hover:text-gray-300">Actors</a>
                 </li>
             </ul>
             <div class="flex flex-col md:flex-row items-center">
@@ -37,11 +35,7 @@
                             //can add a search logo later
                         </div> --}}
                 </div>
-                <div class="md:ml-4 mt-3 md:mt-0">
-                    <a href="#">
-                        <img src="/img/avatar.jpg" alt="avatar" class="rounded-full w-8 h-8">
-                    </a>
-                </div>
+                
             </div>
         </div>
     </nav>

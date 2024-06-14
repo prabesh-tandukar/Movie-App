@@ -19,6 +19,11 @@
 </div>
 
 <div class="mb-4">
+    <label for="title" class="block text-sm font-medium text-gray-700">Genres</label>
+    <input type="text" name="genres" id="genres" class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white" value="{{ old('title', $movie->genres ?? '') }}" required>
+</div>
+
+<div class="mb-4">
     <label for="main_image" class="block text-sm font-medium text-gray-700">Main Image</label>
     <input type="file" name="main_image" id="main_image" class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white" {{ isset($movie) ? '' : 'required' }}>
 </div>
@@ -26,6 +31,11 @@
 <div class="mb-4">
     <label for="other_images" class="block text-sm font-medium text-gray-700">Other Images</label>
     <input type="file" name="other_images[]" id="other_images" class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-white" multiple>
+</div>
+
+<div class="mb-4">
+    <label for="is_now_playing" class="block text-sm font-medium text-gray-700">Now Playing</label>
+    <input type="checkbox" name="is_now_playing" id="is_now_playing" value="1">{{ old('is_now_playing', $movie->is_now_playing ?? false) ? 'checked' : '' }}</input>
 </div>
 
 <div class="mb-4">

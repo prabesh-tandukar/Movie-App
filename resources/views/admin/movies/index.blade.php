@@ -11,6 +11,7 @@
                 <tr>
                     <th class="border-2 px-4 py-2">Title</th>
                     <th class="border-2 px-4 py-2">Rating</th>
+                    <th class="border-2 px-4 py-2">Genres</th>
                     <th class="border-2 px-4 py-2">Release Date</th>
                     <th class="border-2 px-4 py-2">Actions</th>
                 </tr>
@@ -20,6 +21,7 @@
                     <tr>
                         <td class="border-2 px-4 py-2">{{ $movie->title }}</td>
                         <td class="border-2 px-4 py-2">{{ $movie->rating }}</td>
+                        <td class="border-2 px-4 py-2">{{ $movie->genres }}</td>
                         <td class="border-2 px-4 py-2">{{ $movie->release_date }}</td>
                         <td>
                             <a href="{{ route('movies.edit', $movie) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">Edit</a>

@@ -77,4 +77,16 @@ class ActorController extends Controller
         return redirect()->route('actors.index');
     }
 
+    public function indexActor()
+    {
+        $actors = Actor::all();
+        return view('actors.index', compact('actors'));
+    }
+    public function viewActor($id)
+    {
+        $actor = Actor::findOrFail($id);
+
+        return view('actors.view', compact('actor'));
+    }
+
 }
