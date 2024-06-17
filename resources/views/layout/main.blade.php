@@ -27,14 +27,7 @@
                 </li>
             </ul>
             <div class="flex flex-col md:flex-row items-center">
-                <div class="relative mt-3 md:mt-0">
-                    <input type="text"
-                        class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1 focus:outline-none focus:shadow-outline"
-                        placeholder="Search">
-                        {{-- <div class="absolute top-0">
-                            //can add a search logo later
-                        </div> --}}
-                </div>
+                
                 
             </div>
         </div>
